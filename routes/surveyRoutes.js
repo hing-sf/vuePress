@@ -11,12 +11,18 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
 
 module.exports = app => {
-  app.get('/api/promoInstance', requireLogin, async (req, res) => {
-    const surveys = await Survey.find({ _user: req.user.id }).select({
-      recipients: false
-    });
 
-    res.send(surveys);
+  // app.get('/api/promoInstance', requireLogin, async (req, res) => {
+  //   const surveys = await Survey.find({ _user: req.user.id }).select({
+  //     recipients: false
+  //   });
+
+  //   res.send(surveys);
+  // });
+
+  app.get('/api/promoInstance', async (req, res) => {
+    const data = await Survey.find( req.type )
+    res.send(data);
   });
 
   app.get('/api/promoInstance/:surveyId/:choice', (req, res) => {
