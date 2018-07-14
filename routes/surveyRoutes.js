@@ -21,7 +21,7 @@ module.exports = app => {
   // });
 
   app.get('/api/promoInstance', async (req, res) => {
-    const data = await Survey.find( req.type )
+    const data = await Survey.find( req.slug )
     res.send(data);
   });
 
@@ -61,13 +61,22 @@ module.exports = app => {
     res.send({});
   });
 
+
+
+
+
+
+
   app.post('/api/promoInstance', requireLogin, async (req, res) => {    
-    const { jsonData, type} = req.body;
+    const { slug, template, postTitle, featuredImage, postDescription, image, head, subCopy} = req.body;
 
     const survey = new Survey({
-      jsonData,
-      type,
-      // recipients: recipients.split(',').map(email => ({ email: email.trim() })),
+      
+      slug: postTitle.split(' ').join('-').toLowerCase(),
+      postTitle,
+      postDescription,
+      featuredImage,
+      content: [{template, image, head, subCopy} ],
       _user: req.user.id,
       dateSent: Date.now()
     });
@@ -78,7 +87,7 @@ module.exports = app => {
     try {
       // await mailer.send();
       await survey.save();
-      req.user.credits -= 1;
+      // req.user.credits -= 1;
       const user = await req.user.save();
 
       res.send(user);

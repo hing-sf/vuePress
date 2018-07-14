@@ -14,7 +14,7 @@ class SurveyList extends Component {
           <div className="card-content">
             <span className="card-title">{survey.type}</span>
             <p>
-              {survey.jsonData}
+              {survey.slug}
             </p>
             <p className="right">
               Sent On: {new Date(survey.dateSent).toLocaleDateString()}

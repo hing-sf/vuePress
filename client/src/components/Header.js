@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Payments from './Payments';
+// import Payments from './Payments';
 
 class Header extends Component {
   renderContent() {
@@ -9,7 +9,7 @@ class Header extends Component {
       case null:
         return;
       case false:
-        return <li><a href="/auth/google">Login With Google</a></li>;
+        return <li><a href="/auth/google">Login</a></li>;
       default:
         return [
           // <li key="1"><Payments /></li>,
@@ -26,7 +26,7 @@ class Header extends Component {
       <nav>
         <div className="nav-wrapper">
           <Link
-            to={this.props.auth ? '/surveys' : '/'}
+            to={this.props.auth ? '/slugList' : '/'}
             className="left brand-logo"
           >
             vueReact
