@@ -29,7 +29,7 @@ class Header extends Component {
             to={this.props.auth ? '/slugList' : '/'}
             className="left brand-logo"
           >
-            vueReact
+          vuePress
           </Link>
           <ul className="right">
             {this.renderContent()}
