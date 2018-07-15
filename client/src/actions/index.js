@@ -20,6 +20,7 @@ export const submitSurvey = (values, history) => async dispatch => {
   const res = await axios.post('/api/promoInstance', values);
 
   console.log('submit Surveys finish');
+  console.log(values);
   history.push('/slugList');
   dispatch({ type: FETCH_USER, payload: res.data });
 };
@@ -27,6 +28,7 @@ export const submitSurvey = (values, history) => async dispatch => {
 export const fetchSurveys = () => async dispatch => {
   const res = await axios.get('/api/promoInstance');
   console.log('fetch Surveys Start');
+  
   dispatch({ type: FETCH_SURVEYS, payload: res.data });
   console.log('fetch Surveys finish');
   

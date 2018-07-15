@@ -4,21 +4,10 @@ const Path = require('path-parser');
 const { URL } = require('url');
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
-// const requireCredits = require('../middlewares/requireCredits');
-// const Mailer = require('../services/Mailer');
-const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
 const Survey = mongoose.model('surveys');
 
 module.exports = app => {
-
-  // app.get('/api/promoInstance', requireLogin, async (req, res) => {
-  //   const surveys = await Survey.find({ _user: req.user.id }).select({
-  //     recipients: false
-  //   });
-
-  //   res.send(surveys);
-  // });
 
   app.get('/api/promoInstance', async (req, res) => {
     const data = await Survey.find( req.slug )
@@ -29,70 +18,45 @@ module.exports = app => {
     res.send('Thanks for voting!');
   });
 
-  app.post('/api/promoInstance/webhooks', (req, res) => {
-    const p = new Path('/api/promoInstance/:surveyId/:choice');
-
-    _.chain(req.body)
-      .map(({ email, url }) => {
-        const match = p.test(new URL(url).pathname);
-        if (match) {
-          return { email, surveyId: match.surveyId, choice: match.choice };
-        }
-      })
-      .compact()
-      .uniqBy('email', 'surveyId')
-      .each(({ surveyId, email, choice }) => {
-        Survey.updateOne(
-          {
-            _id: surveyId,
-            recipients: {
-              $elemMatch: { email: email, responded: false }
-            }
-          },
-          {
-            $inc: { [choice]: 1 },
-            $set: { 'recipients.$.responded': true },
-            lastResponded: new Date()
-          }
-        ).exec();
-      })
-      .value();
-
-    res.send({});
-  });
-
-
-
-
-
-
-
+  // POST promoInstance to Database
   app.post('/api/promoInstance', requireLogin, async (req, res) => {    
-    const { slug, template, postTitle, featuredImage, postDescription, image, head, subCopy} = req.body;
+    const {lgImage, mdImage, ctaUrl, eyeEN, hedEN, subEN, ctaName } = req.body;
+    let instanceId = `instance_ID_${Date.now()}`
 
     const survey = new Survey({
       
-      slug: postTitle.split(' ').join('-').toLowerCase(),
-      postTitle,
-      postDescription,
-      featuredImage,
-      content: [{template, image, head, subCopy} ],
+      // slug: hedEN.split(' ').join('-').toLowerCase(),
+      storyDefault: { 
+        images: [{ large: lgImage, medium: mdImage }],
+        ctas: { url: ctaUrl },
+        transdata: { 
+          eye: { en: eyeEN },
+          hed: { en: hedEN },
+          sub: { en: subEN },
+          cta: { en: ctaName }
+         }
+      },
+      // content: [{template, image, head, subCopy} ],
       _user: req.user.id,
+      instanceId: instanceId,
       dateSent: Date.now()
     });
 
-    // Great place to send an email!
-    // const mailer = new Mailer(survey, surveyTemplate(survey));
-
     try {
-      // await mailer.send();
-      await survey.save();
-      // req.user.credits -= 1;
-      const user = await req.user.save();
+         await survey.save()
+      
+            Survey.findOne({ instanceId: instanceId })
+            .then((instance) => {
+            console.log(instance);
+            instance.storyDefault.images.push({ large: mdImage });;
+            return instance.save();
+        });
 
-      res.send(user);
-    } catch (err) {
-      res.status(422).send(err);
+        const user = await req.user.save();
+
+        res.send(user);
+      } catch (err) {
+        res.status(422).send(err);
     }
   });
 };

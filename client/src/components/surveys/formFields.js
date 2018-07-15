@@ -1,10 +1,13 @@
 export default [
   // { label: 'Slug id', name: 'slug' },
-  { label: 'Post Title', name: 'postTitle' },
-  { label: 'Content Template', name: 'template' },
-  { label: 'post Description', name: 'postDescription' },
-  { label: 'featured Image', name: 'featuredImage' },
-  { label: 'image', name: 'image' },
-  { label: 'head', name: 'head' },
-  { label: 'subcopy', name: 'subCopy' }
+  // { label: 'Template', name: 'storyDefault' },
+  // { label: 'Eyebrow', name: 'eyeEN' },
+  // { label: 'Headline', name: 'hedEN' },
+  // { label: 'Subcopy', name: 'subEN' },
+  // { label: 'cta Name', name: 'ctaName' },
+  // { label: 'cta Url', name: 'ctaUrl' },
+  { label: 'Medium image', name: 'mdImage' },
+  { label: 'Large image', name: 'lgImage' }
+  
+  
 ];
