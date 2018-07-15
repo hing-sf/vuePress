@@ -5,11 +5,10 @@ const ContentSchema = new Schema({
   images: [ {
     large: String,
     medium: String
-  }
-  ],
-  ctas: {
+  }],
+  ctas: [{
     url: String,
-  },
+  }],
   transdata: {
     eye: {
       en: String

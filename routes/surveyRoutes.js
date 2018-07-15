@@ -20,7 +20,7 @@ module.exports = app => {
 
   // POST promoInstance to Database
   app.post('/api/promoInstance', requireLogin, async (req, res) => {    
-    const {lgImage, mdImage, ctaUrl, eyeEN, hedEN, subEN, ctaName } = req.body;
+    const {lgImage, mdImage, ctaUrl , ctaUrl1, eyeEN, hedEN, subEN, ctaName } = req.body;
     let instanceId = `instance_ID_${Date.now()}`
 
     const survey = new Survey({
@@ -28,7 +28,7 @@ module.exports = app => {
       // slug: hedEN.split(' ').join('-').toLowerCase(),
       storyDefault: { 
         images: [{ large: lgImage, medium: mdImage }],
-        ctas: { url: ctaUrl },
+        ctas: [{ url: ctaUrl }],
         transdata: { 
           eye: { en: eyeEN },
           hed: { en: hedEN },
@@ -48,7 +48,7 @@ module.exports = app => {
             Survey.findOne({ instanceId: instanceId })
             .then((instance) => {
             console.log(instance);
-            instance.storyDefault.images.push({ large: mdImage });;
+            instance.storyDefault.ctas.push({ url: ctaUrl1 });
             return instance.save();
         });
 
