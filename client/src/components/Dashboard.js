@@ -6,6 +6,7 @@ const Dashboard = () => {
   return (
     <div>
       <SurveyList />
+      <h5>Promos List</h5>
       <div className="fixed-action-btn">
         <Link to="/promoInstance/new" className="btn-floating btn-large red">
           <i className="material-icons">add</i>
