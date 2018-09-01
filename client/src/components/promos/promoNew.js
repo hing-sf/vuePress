@@ -1,8 +1,7 @@
-// SurveyNew shows SurveyForm and SurveyFormReview
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import SurveyForm from './SurveyForm';
-import SurveyFormReview from './SurveyFormReview';
+import PromoForm from './PromoForm';
+import PromoFormReview from './PromoFormReview';
 
 class PromoNew extends Component {
   state = { showFormReview: false };
@@ -10,15 +9,15 @@ class PromoNew extends Component {
   renderContent() {
     if (this.state.showFormReview) {
       return (
-        <SurveyFormReview
+        <PromoFormReview
           onCancel={() => this.setState({ showFormReview: false })}
         />
       );
     }
 
     return (
-      <SurveyForm
-        onSurveySubmit={() => this.setState({ showFormReview: true })}
+      <PromoForm
+        onPromoSubmit={() => this.setState({ showFormReview: true })}
       />
     );
   }
@@ -33,5 +32,5 @@ class PromoNew extends Component {
 }
 
 export default reduxForm({
-  form: 'surveyForm'
+  form: 'promoForm'
 })(PromoNew);

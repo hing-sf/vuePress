@@ -1,19 +1,19 @@
-// SurveyForm shows a form for a user to add input
+// PromoForm shows a form for a user to add input
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-import SurveyField from './SurveyField';
+import PromoField from './PromoField';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
 
-class SurveyForm extends Component {
+class PromoForm extends Component {
   renderFields() {
     return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
-          component={SurveyField}
+          component={PromoField}
           type="text"
           label={label}
           name={name}
@@ -25,9 +25,9 @@ class SurveyForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
+        <form onSubmit={this.props.handleSubmit(this.props.onPromoSubmit)}>
           {this.renderFields()}
-          <Link to="/sluglist" className="red btn-flat white-text">
+          <Link to="/promosList" className="red btn-flat white-text">
             Cancel
           </Link>
           <button type="submit" className="teal btn-flat right white-text">
@@ -56,6 +56,6 @@ function validate(values) {
 
 export default reduxForm({
   validate,
-  form: 'surveyForm',
+  form: 'promoForm',
   destroyOnUnmount: false
-})(SurveyForm);
+})(PromoForm);

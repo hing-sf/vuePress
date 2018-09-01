@@ -12,13 +12,15 @@ class SurveyList extends Component {
       return (
         <div className="card darken-1" key={survey._id}>
           <div className="card-content">
-            <span className="card-title">{survey.type}</span>
             <h6>
-               slug ID: <span>{survey.slug}</span>
+               Type: <span>{survey.type}</span>
             </h6>
+            <p>
+              Title: <span>{survey.title}</span>
+            </p>
             <p className="right">
               Sent On: {new Date(survey.dateSent).toLocaleDateString()}
-            </p>            
+            </p>
           </div>
 
         </div>

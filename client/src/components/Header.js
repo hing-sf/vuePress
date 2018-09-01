@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import Payments from './Payments';
 
 class Header extends Component {
   renderContent() {
@@ -28,7 +27,11 @@ class Header extends Component {
           vuePress
           </Link>
           <ul className="right">
-
+            <li key="3">
+              <Link
+                to={this.props.auth ? '/promoInstance/new' : '/'}
+              >Add New</Link>
+            </li>
               {this.renderContent()}
           </ul>
 

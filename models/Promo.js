@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const ContentSchema = require('./ContentSchema');
 
-const surveySchema = new Schema({
+const promoSchema = new Schema({
+  type: String,
+  title: String,
   instanceId: String,
   storyDefault: ContentSchema,
   storyjumbo: ContentSchema,
@@ -12,4 +14,4 @@ const surveySchema = new Schema({
   lastResponded: Date
 });
 
-mongoose.model('surveys', surveySchema);
+mongoose.model('promos', promoSchema);
