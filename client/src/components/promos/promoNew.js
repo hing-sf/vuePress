@@ -31,6 +31,7 @@ class PromoNew extends Component {
   }
 }
 
+// when navigate away from promoForm, clear all input value. this clear value on successful submit
 export default reduxForm({
   form: 'promoForm'
 })(PromoNew);

@@ -9,14 +9,16 @@ const Promo = mongoose.model("promos");
 module.exports = app => {
 	app.get("/api/promoInstance", async (req, res) => {
 		const data = await Promo.find(req.slug);
+		// console.log(data);
+		console.log(req);
 		res.send(data);
 	});
 
-	app.get("/api/promoInstance/:surveyId/:choice", (req, res) => {
-		res.send("Thanks for voting!");
-	});
+	// app.get("/api/promoInstance/:surveyId/:choice", (req, res) => {
+	// 	res.send("Thanks for voting!");
+	// });
 
-	// POST promoInstance to Database
+	// POST to Database
 	app.post("/api/promoInstance", requireLogin, async (req, res) => {
 
 		const { type, title } = req.body;

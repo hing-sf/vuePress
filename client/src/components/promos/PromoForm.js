@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import PromoField from './PromoField';
-import validateEmails from '../../utils/validateEmails';
+// import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
 
 class PromoForm extends Component {
@@ -43,17 +43,20 @@ class PromoForm extends Component {
 function validate(values) {
   const errors = {};
 
-  errors.recipients = validateEmails(values.recipients || '');
+  // errors.recipients = validateEmails(values.recipients || '');
 
-  _.each(formFields, ({ name }) => {
+  _.each(formFields, ({ name, errMessage }) => {
     if (!values[name]) {
-      errors[name] = 'You must provide a value';
+      errors[name] = errMessage;
     }
   });
 
   return errors;
 }
 
+// validate excute on submit
+// form: promoForm = location where redux form stored value in redux store
+// destroyOnUnmount: false = will save state of form
 export default reduxForm({
   validate,
   form: 'promoForm',

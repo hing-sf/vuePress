@@ -4,18 +4,6 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 
 export default ({ input, label, meta: { error, touched } }) => {
-  // function ActionLink() {
-  //   function handleClick(e) {
-  //     e.preventDefault();
-  //     console.log('The link was clicked.');
-  //   }
-
-  //   return (
-  //     <a href="#" onClick={handleClick}>
-  //       Click me
-  //     </a>
-  //   );
-  // }
 
   return (
     <div style={{ position: 'relative'}}>

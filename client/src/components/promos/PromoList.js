@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPromos } from "../../actions";
+import { fetchPromos, deletePromo } from "../../actions";
 
 class PromoList extends Component {
 	componentDidMount() {
@@ -15,15 +15,23 @@ class PromoList extends Component {
 						<h6>
 							Type: <span>{promo.type}</span>
 						</h6>
-						<p>
-							Title: <span>{promo.title}</span>
-						</p>
+						<ul key="{promo._id}">
+							<li>
+								Title: <span>{promo.title}</span>
+							</li>
+							<li>
+								ID: <span>{promo._id}</span>
+							</li>
+						</ul>
+						<p />
+						<p />
 						<p>Sent On: {new Date(promo.dateSent).toLocaleDateString()}</p>
 						<p className="right">
-							<a className="waves-effect waves-light btn">
-								<i className="material-icons right">cloud</i>
-								button
-							</a>
+							<button
+
+								className="btn-floating btn-small red">
+								<i className="material-icons right">delete</i>
+							</button>
 						</p>
 					</div>
 				</div>
